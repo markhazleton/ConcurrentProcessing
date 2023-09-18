@@ -9,9 +9,7 @@ through the steps to use the `ConcurrentProcessor` class effectively in your C# 
 
 1. [Understanding the ConcurrentProcessor Class](#UnderstandingTheConcurrentProcessorClass)
 1. [Getting Started](#getting-started)
-1. [Running the Concurrent Processor](#running-the-concurrent-processor)
-1. [Getting Started](#getting-started)
-1. [Running the Concurrent Processor](#running-the-concurrent-processor)
+1. [Creating Metrics for 'ConcurrentProcessor'](#creating-metrics)
 1. [Contributing](#contributing)
 1. [License](#license)
 1. [References](#references)
@@ -131,7 +129,7 @@ var processor = new MyConcurrentProcessor(maxTaskCount, maxConcurrency);
 var results = await processor.RunAsync();
 ```
 
-## Creating Metrics for 'ConcurrentProcessor' <a id=""></a> | [Back To Top](#top)
+## Creating Metrics for 'ConcurrentProcessor' <a id="creating-metrics"></a> | [Back To Top](#top)
 
 Concurrency is a crucial aspect of modern software development, allowing programs to efficiently execute multiple tasks simultaneously. One essential aspect of managing concurrent processes is monitoring and optimizing performance, which can be achieved by collecting and analyzing metrics. In this article, we will explore how to create metrics for a ConcurrentProcessor, a fundamental component in concurrent programming.
 

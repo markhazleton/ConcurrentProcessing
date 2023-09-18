@@ -4,9 +4,7 @@ using System.Diagnostics;
 
 await RunConcurrent(100, 1);
 await RunConcurrent(100, 10);
-await RunConcurrent(100, 20);
-await RunConcurrent(100, 40);
-await RunConcurrent(100, 80);
+await RunConcurrent(100, 50);
 await RunConcurrent(100, 100);
 await RunConcurrent(1000, 500);
 await RunConcurrent(1000, 1000);
