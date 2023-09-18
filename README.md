@@ -208,6 +208,36 @@ public void ReportMetrics(List<ConcurrentProcessorModel> metrics)
     }
 }
 ```
+
+### Metrics Review
+
+Now that we have metrics configured, we run a few different scenarios to compare the results.
+
+```output
+Starting 100 tasks with a max concurrency of 1...
+TaskCount               Minimum: 0      Maximum: 0      Average: 0.00
+WaitTicks               Minimum: 2      Maximum: 638    Average: 14.12
+SemaphoreCount          Minimum: 0      Maximum: 0      Average: 0.00
+SemaphoreWait           Minimum: 2      Maximum: 638    Average: 14.12
+TaskDuration            Minimum: 12     Maximum: 33     Average: 20.05
+Total Duration: 2083ms
+Starting 100 tasks with a max concurrency of 10...
+TaskCount               Minimum: 0      Maximum: 9      Average: 8.55
+WaitTicks               Minimum: 1      Maximum: 9      Average: 1.87
+SemaphoreCount          Minimum: 0      Maximum: 9      Average: 2.51
+SemaphoreWait           Minimum: 1      Maximum: 9      Average: 1.87
+TaskDuration            Minimum: 9      Maximum: 33     Average: 19.58
+Total Duration: 213ms
+Starting 100 tasks with a max concurrency of 50...
+TaskCount               Minimum: 0      Maximum: 49     Average: 36.75
+WaitTicks               Minimum: 1      Maximum: 3085   Average: 39.04
+SemaphoreCount          Minimum: 0      Maximum: 49     Average: 21.66
+SemaphoreWait           Minimum: 1      Maximum: 3085   Average: 39.04
+TaskDuration            Minimum: 9      Maximum: 30     Average: 16.73
+Total Duration: 62ms
+```
+
+
 Creating metrics for your ConcurrentProcessor is a critical step in optimizing concurrent task execution. By monitoring task execution times, semaphore wait times, and other relevant metrics, you can gain valuable insights into your system's performance. These insights can guide you in making informed decisions to fine-tune your concurrency settings and improve the efficiency of your concurrent processing tasks.
 
 Remember that metrics should be an integral part of your software development process, helping you identify and address performance bottlenecks proactively. With well-implemented metrics, you can ensure that your ConcurrentProcessor operates at its optimal capacity, delivering efficient concurrent task execution.
