@@ -31,7 +31,7 @@ public abstract class ConcurrentProcessor<T> where T : ConcurrentProcessorModel
         else return null;
     }
 
-    protected async Task<T> ManageProcessAsync(int taskId, int taskCount, long waitTicks, SemaphoreSlim semaphore) 
+    protected async Task<T> ManageProcessAsync(int taskId, int taskCount, long waitTicks, SemaphoreSlim semaphore)
     {
         Stopwatch sw = Stopwatch.StartNew();
         sw.Start();
@@ -53,7 +53,7 @@ public abstract class ConcurrentProcessor<T> where T : ConcurrentProcessorModel
         {
             semaphore.Release();
             sw.Stop();
-            if(result is not null)
+            if (result is not null)
                 result.TaskDurationMS = sw.ElapsedMilliseconds;
         }
         return result;
