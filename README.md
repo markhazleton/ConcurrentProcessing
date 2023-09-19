@@ -5,6 +5,8 @@ The `ConcurrentProcessor` class is a versatile tool designed to help developers 
 and process multiple tasks concurrently in a controlled manner. This documentation will guide you
 through the steps to use the `ConcurrentProcessor` class effectively in your C# applications.
 
+[Companion Article On Concurrent Processing](https://markhazleton.controlorigins.com/concurrent-processing.html)
+
 ## Table of Contents
 
 1. [Understanding the ConcurrentProcessor Class](#UnderstandingTheConcurrentProcessorClass)
