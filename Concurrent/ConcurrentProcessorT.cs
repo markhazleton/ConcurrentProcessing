@@ -2,21 +2,19 @@
 
 namespace ConcurrentProcessing.Concurrent;
 
-public abstract class ConcurrentProcessor<T> where T : ConcurrentProcessorModel
+/// <summary>
+/// Represents an abstract concurrent processor.
+/// </summary>
+/// <typeparam name="T">The type of the concurrent processor model.</typeparam>
+public abstract class ConcurrentProcessor<T>(int maxTaskCount, int maxConcurrency) where T : ConcurrentProcessorModel
 {
-    private readonly int maxConcurrency;
-    private readonly int maxTaskCount;
-    private readonly SemaphoreSlim semaphore;
-    private readonly List<Task<T>> tasks;
+    private readonly SemaphoreSlim semaphore = new(maxConcurrency);
+    private readonly List<Task<T>> tasks = [];
 
-    protected ConcurrentProcessor(int maxTaskCount, int maxConcurrency)
-    {
-        this.maxTaskCount = maxTaskCount;
-        this.maxConcurrency = maxConcurrency;
-        semaphore = new SemaphoreSlim(maxConcurrency);
-        tasks = [];
-    }
-
+    /// <summary>
+    /// Asynchronously waits for the semaphore and returns the elapsed ticks.
+    /// </summary>
+    /// <returns>The elapsed ticks.</returns>
     protected async Task<long> AwaitSemaphoreAsync()
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -25,12 +23,25 @@ public abstract class ConcurrentProcessor<T> where T : ConcurrentProcessorModel
         return stopwatch.ElapsedTicks;
     }
 
+    /// <summary>
+    /// Gets the next task ID based on the current task ID.
+    /// </summary>
+    /// <param name="taskId">The current task ID.</param>
+    /// <returns>The next task ID or null if there are no more tasks.</returns>
     protected virtual int? GetNextTaskId(int? taskId)
     {
         if (taskId < maxTaskCount) return taskId + 1;
         else return null;
     }
 
+    /// <summary>
+    /// Manages the process asynchronously.
+    /// </summary>
+    /// <param name="taskId">The task ID.</param>
+    /// <param name="taskCount">The total number of tasks.</param>
+    /// <param name="waitTicks">The elapsed ticks while waiting for the semaphore.</param>
+    /// <param name="semaphore">The semaphore.</param>
+    /// <returns>The result of the process.</returns>
     protected async Task<T> ManageProcessAsync(int taskId, int taskCount, long waitTicks, SemaphoreSlim semaphore)
     {
         Stopwatch sw = Stopwatch.StartNew();
@@ -59,14 +70,21 @@ public abstract class ConcurrentProcessor<T> where T : ConcurrentProcessorModel
         return result;
     }
 
+    /// <summary>
+    /// Processes the task asynchronously.
+    /// </summary>
+    /// <param name="taskData">The task data.</param>
+    /// <returns>The result of the process.</returns>
     protected abstract Task<T> ProcessAsync(ConcurrentProcessorModel taskData);
 
+    /// <summary>
+    /// Runs the concurrent processor asynchronously.
+    /// </summary>
+    /// <returns>The list of results.</returns>
     public async Task<List<T>> RunAsync()
     {
         int? taskId = 1;
-
         List<T> results = [];
-
         while (taskId is not null)
         {
             long waitTicks = await AwaitSemaphoreAsync();
@@ -87,6 +105,5 @@ public abstract class ConcurrentProcessor<T> where T : ConcurrentProcessorModel
             results.Add(await task); // Add the remaining task results to the list
         }
         return results;
-
     }
 }
