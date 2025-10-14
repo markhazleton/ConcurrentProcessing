@@ -1,0 +1,24 @@
+<Project>
+    <PropertyGroup>
+        <!-- Code Analysis -->
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors />
+        <WarningsNotAsErrors>NETSDK1057</WarningsNotAsErrors>
+
+        <!-- Reproducible Builds -->
+        <Deterministic>true</Deterministic>
+        <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
+        <!-- Language Features -->
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <!-- Assembly Info -->
+        <Product>ConcurrentProcessing</Product>
+        <Company>Mark Hazleton</Company>
+        <Copyright>Copyright © Mark Hazleton 2025</Copyright>
+    </PropertyGroup>
+</Project>
