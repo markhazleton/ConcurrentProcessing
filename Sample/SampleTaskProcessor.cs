@@ -1,4 +1,4 @@
-﻿using ConcurrentProcessing.Concurrent;
+using ConcurrentProcessing.Concurrent;
 
 namespace ConcurrentProcessing.Sample;
 public class SampleTaskProcessor(int maxTaskCount, int maxConcurrency)
@@ -6,7 +6,7 @@ public class SampleTaskProcessor(int maxTaskCount, int maxConcurrency)
 {
     protected override async Task<SampleTaskResult> ProcessAsync(ConcurrentProcessorModel taskData)
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(new Random().Next(10, 20)));
+        await Task.Delay(TimeSpan.FromMilliseconds((double)new Random().Next(10, 20)));
         return new SampleTaskResult(taskData);
     }
 }
