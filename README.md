@@ -16,6 +16,7 @@ This project has been upgraded to **.NET 10.0 LTS** for improved performance, se
 - [Understanding the ConcurrentProcessor Class](docs/concurrentprocessor.md)
 - [Getting Started](docs/getting-started.md)
 - [Creating Metrics](docs/metrics.md)
+- [CI/CD Pipelines](docs/cicd.md) ⚡ **New!**
 - [Contributing](docs/contributing.md)
 - [License](docs/license.md)
 - [References](docs/references.md)
