@@ -1,6 +1,15 @@
 # ConcurrentProcessing
 
+[![.NET Build and Test](https://github.com/markhazleton/ConcurrentProcessing/actions/workflows/dotnet.yml/badge.svg)](https://github.com/markhazleton/ConcurrentProcessing/actions/workflows/dotnet.yml)
+[![Release](https://github.com/markhazleton/ConcurrentProcessing/actions/workflows/release.yml/badge.svg)](https://github.com/markhazleton/ConcurrentProcessing/actions/workflows/release.yml)
+[![.NET Version](https://img.shields.io/badge/.NET-10.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/10.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 This repository provides a flexible and efficient `ConcurrentProcessor` class for managing and processing multiple tasks concurrently in C#. The documentation is now organized into specialized documents for easier navigation.
+
+## 🚀 .NET 10 LTS
+
+This project has been upgraded to **.NET 10.0 LTS** for improved performance, security, and long-term support.
 
 ## Documentation
 

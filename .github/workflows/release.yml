@@ -1,0 +1,121 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.0.0)'
+        required: true
+        type: string
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  CONFIGURATION: Release
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup .NET ${{ env.DOTNET_VERSION }}
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Get version from tag or input
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build solution
+      run: dotnet build --configuration ${{ env.CONFIGURATION }} --no-restore
+    
+    - name: Run tests and validation
+      run: dotnet run --project ConcurrentProcessing.csproj --configuration ${{ env.CONFIGURATION }} --no-build
+    
+    - name: Publish for multiple runtimes
+      run: |
+        runtimes=("win-x64" "linux-x64" "osx-x64" "osx-arm64")
+        for runtime in "${runtimes[@]}"; do
+          echo "Publishing for $runtime..."
+          dotnet publish ConcurrentProcessing.csproj \
+            --configuration ${{ env.CONFIGURATION }} \
+            --runtime $runtime \
+            --self-contained true \
+            --output ./publish/$runtime \
+            /p:PublishSingleFile=true \
+            /p:PublishTrimmed=false \
+            /p:IncludeNativeLibrariesForSelfExtract=true \
+            /p:Version=${{ steps.version.outputs.version }}
+        done
+    
+    - name: Create release archives
+      run: |
+        cd publish
+        for dir in */; do
+          runtime="${dir%/}"
+          if [[ "$runtime" == win-* ]]; then
+            zip -r "../ConcurrentProcessing-v${{ steps.version.outputs.version }}-${runtime}.zip" "$runtime"
+          else
+            tar -czf "../ConcurrentProcessing-v${{ steps.version.outputs.version }}-${runtime}.tar.gz" "$runtime"
+          fi
+        done
+        cd ..
+    
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        cat > release_notes.md << 'EOF'
+        ## ConcurrentProcessing v${{ steps.version.outputs.version }}
+        
+        ### ?? What's New
+        - Upgraded to .NET 10.0 LTS
+        - Enhanced concurrent processing performance
+        - Updated analyzer packages for .NET 10
+        
+        ### ?? Downloads
+        Choose the appropriate package for your platform:
+        - **Windows**: `ConcurrentProcessing-v${{ steps.version.outputs.version }}-win-x64.zip`
+        - **Linux**: `ConcurrentProcessing-v${{ steps.version.outputs.version }}-linux-x64.tar.gz`
+        - **macOS (Intel)**: `ConcurrentProcessing-v${{ steps.version.outputs.version }}-osx-x64.tar.gz`
+        - **macOS (Apple Silicon)**: `ConcurrentProcessing-v${{ steps.version.outputs.version }}-osx-arm64.tar.gz`
+        
+        ### ? Requirements
+        - .NET 10.0 Runtime (or use self-contained executable)
+        
+        ### ?? Changelog
+        See commit history for detailed changes.
+        EOF
+        echo "notes_path=release_notes.md" >> $GITHUB_OUTPUT
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ steps.version.outputs.version }}
+        name: Release v${{ steps.version.outputs.version }}
+        body_path: ${{ steps.release_notes.outputs.notes_path }}
+        draft: false
+        prerelease: false
+        files: |
+          ConcurrentProcessing-v${{ steps.version.outputs.version }}-*.zip
+          ConcurrentProcessing-v${{ steps.version.outputs.version }}-*.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

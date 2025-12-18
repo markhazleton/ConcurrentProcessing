@@ -1,0 +1,54 @@
+version: 2
+
+updates:
+  # Keep NuGet packages up to date
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "nuget"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    reviewers:
+      - "markhazleton"
+    assignees:
+      - "markhazleton"
+    ignore:
+      # Ignore major version updates for stable packages
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      # Group analyzer updates together
+      analyzers:
+        patterns:
+          - "Microsoft.CodeAnalysis.*"
+      # Group Microsoft packages together
+      microsoft-packages:
+        patterns:
+          - "Microsoft.*"
+          - "System.*"
+
+  # Keep GitHub Actions up to date
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    reviewers:
+      - "markhazleton"
+    assignees:
+      - "markhazleton"
