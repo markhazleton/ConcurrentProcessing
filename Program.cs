@@ -2,6 +2,9 @@
 using ConcurrentProcessing.Sample;
 using System.Diagnostics;
 
+Console.WriteLine("ConcurrentProcessing Demo - .NET 10");
+Console.WriteLine("===================================\n");
+
 // Run tests with various task counts and concurrency levels
 await RunConcurrent(100, 1);
 await RunConcurrent(100, 10);

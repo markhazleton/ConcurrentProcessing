@@ -1,37 +1,38 @@
 ﻿namespace ConcurrentProcessing.Concurrent;
 
 /// <summary>
-/// Represents a concurrent processor model.
+/// Represents a concurrent processor model with execution metrics.
 /// </summary>
 public class ConcurrentProcessorModel
 {
     /// <summary>
-    /// Gets or sets the task ID.
+    /// Gets or init the task ID.
     /// </summary>
-    public int TaskId { get; set; }
+    public int TaskId { get; init; }
 
     /// <summary>
-    /// Gets or sets the task count.
+    /// Gets or init the task count.
     /// </summary>
-    public int TaskCount { get; set; }
+    public int TaskCount { get; init; }
 
     /// <summary>
-    /// Gets or sets the wait ticks.
+    /// Gets or init the wait ticks.
     /// </summary>
-    public long WaitTicks { get; set; }
+    public long WaitTicks { get; init; }
 
     /// <summary>
-    /// Gets or sets the semaphore count.
+    /// Gets or init the semaphore count.
     /// </summary>
-    public int SemaphoreCount { get; set; }
+    public int SemaphoreCount { get; init; }
 
     /// <summary>
-    /// Gets or sets the semaphore wait.
+    /// Gets or init the semaphore wait.
     /// </summary>
-    public long SemaphoreWait { get; set; }
+    public long SemaphoreWait { get; init; }
 
     /// <summary>
     /// Gets or sets the task duration in milliseconds.
+    /// Set by the framework after task execution completes.
     /// </summary>
     public long TaskDurationMS { get; set; }
 
@@ -39,9 +40,7 @@ public class ConcurrentProcessorModel
     /// Returns a string that represents the current object.
     /// </summary>
     /// <returns>A string that represents the current object.</returns>
-    public override string? ToString()
-    {
-        return $"Task:{TaskId:D3} DurationMS:{TaskDurationMS:D5} WaitTicks:{WaitTicks:D5} TaskList:{TaskCount:D2} SemaphoreCount:{SemaphoreCount:D2} SemaphoreWait:{SemaphoreWait:D4}";
-    }
+    public override string ToString() =>
+        $"Task:{TaskId:D3} DurationMS:{TaskDurationMS:D5} WaitTicks:{WaitTicks:D5} TaskList:{TaskCount:D2} SemaphoreCount:{SemaphoreCount:D2} SemaphoreWait:{SemaphoreWait:D4}";
 }
 

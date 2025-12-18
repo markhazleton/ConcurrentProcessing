@@ -1,5 +1,8 @@
 ﻿namespace ConcurrentProcessing.Concurrent;
 
+/// <summary>
+/// Provides utility methods for calculating and displaying performance metrics.
+/// </summary>
 public static class MetricCalculator
 {
     /// <summary>
@@ -8,7 +11,9 @@ public static class MetricCalculator
     /// <param name="models">The list of ConcurrentProcessorModel objects.</param>
     public static void CalculateAndDisplayMetrics(List<ConcurrentProcessorModel> models)
     {
-        if (models == null || models.Count == 0)
+        ArgumentNullException.ThrowIfNull(models);
+
+        if (models.Count == 0)
         {
             Console.WriteLine("No data to calculate metrics.");
             return;

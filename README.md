@@ -11,6 +11,8 @@
 
 **ConcurrentProcessing** is a demonstration application showcasing advanced concurrent programming patterns in C# using .NET 10. It provides a robust, production-ready framework for managing parallel task execution with configurable concurrency limits, comprehensive performance tracking, and detailed metrics analysis.
 
+📖 **[Read the full article](https://markhazleton.com/concurrent-processing.html)** for in-depth explanations, real-world use cases, and best practices.
+
 ### Key Features
 
 - ✨ **Generic Abstract Base Class** - Easily extensible `ConcurrentProcessor<T>` for custom task processing
@@ -197,7 +199,7 @@ This project serves as an excellent learning resource for:
 - [Changelog](CHANGELOG.md) - Version history
 
 ### Blog Article
-For a comprehensive walkthrough with real-world scenarios, read the [Companion Article on Concurrent Processing](https://markhazleton.controlorigins.com/concurrent-processing.html).
+For a comprehensive walkthrough with real-world scenarios, read the [Full Article on Concurrent Processing](https://markhazleton.com/concurrent-processing.html).
 
 ## 🔄 Latest Updates (v2.0.0)
 
@@ -270,6 +272,7 @@ See [docs/license.md](docs/license.md) for more information.
 
 - **Issues**: [GitHub Issues](https://github.com/markhazleton/ConcurrentProcessing/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/markhazleton/ConcurrentProcessing/discussions)
+- **Full Article**: [Concurrent Processing Deep Dive](https://markhazleton.com/concurrent-processing.html)
 - **Author**: [Mark Hazleton](https://github.com/markhazleton)
 
 ---

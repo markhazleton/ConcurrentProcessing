@@ -3,9 +3,15 @@
 namespace ConcurrentProcessing.Concurrent;
 
 /// <summary>
-/// Represents an abstract concurrent processor.
+/// Represents an abstract concurrent processor that manages task execution with controlled concurrency.
 /// </summary>
-/// <typeparam name="T">The type of the concurrent processor model.</typeparam>
+/// <typeparam name="T">The type of the concurrent processor model, which must inherit from <see cref="ConcurrentProcessorModel"/>.</typeparam>
+/// <remarks>
+/// This class provides a framework for executing tasks concurrently while limiting the maximum number of concurrent operations.
+/// It uses a semaphore to control concurrency and tracks detailed metrics for each task execution.
+/// </remarks>
+/// <param name="maxTaskCount">The maximum number of tasks to process.</param>
+/// <param name="maxConcurrency">The maximum number of tasks that can run concurrently.</param>
 public abstract class ConcurrentProcessor<T>(int maxTaskCount, int maxConcurrency) where T : ConcurrentProcessorModel
 {
     private readonly SemaphoreSlim semaphore = new(maxConcurrency);
@@ -45,7 +51,6 @@ public abstract class ConcurrentProcessor<T>(int maxTaskCount, int maxConcurrenc
     protected async Task<T> ManageProcessAsync(int taskId, int taskCount, long waitTicks, SemaphoreSlim semaphore)
     {
         Stopwatch sw = Stopwatch.StartNew();
-        sw.Start();
         T? result = default;
         try
         {
