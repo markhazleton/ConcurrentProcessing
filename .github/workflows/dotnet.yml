@@ -49,7 +49,7 @@ jobs:
     
     - name: Upload build artifacts
       if: matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: build-artifacts
         path: |
@@ -140,7 +140,7 @@ jobs:
           /p:IncludeNativeLibrariesForSelfExtract=true
     
     - name: Upload publish artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: published-app
         path: ./publish
