@@ -4,6 +4,7 @@
 [![Release](https://github.com/markhazleton/ConcurrentProcessing/actions/workflows/release.yml/badge.svg)](https://github.com/markhazleton/ConcurrentProcessing/actions/workflows/release.yml)
 [![.NET Version](https://img.shields.io/badge/.NET-10.0-purple.svg)](https://dotnet.microsoft.com/download/dotnet/10.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Security](https://img.shields.io/badge/Security-A+-success.svg)](SECURITY.md)
 
 > A high-performance, flexible concurrent task processing framework for .NET 10 that provides fine-grained control over parallelism with built-in performance metrics.
 
@@ -11,7 +12,7 @@
 
 **ConcurrentProcessing** is a demonstration application showcasing advanced concurrent programming patterns in C# using .NET 10. It provides a robust, production-ready framework for managing parallel task execution with configurable concurrency limits, comprehensive performance tracking, and detailed metrics analysis.
 
-📖 **[Read the full article](https://markhazleton.com/concurrent-processing.html)** for in-depth explanations, real-world use cases, and best practices.
+📖 **[Read the full article](https://markhazleton.com/blog/concurrent-processing)** for in-depth explanations, real-world use cases, and best practices.
 
 ### Key Features
 
@@ -268,9 +269,21 @@ See [docs/license.md](docs/license.md) for more information.
 - Powered by [GitHub Actions](https://github.com/features/actions)
 - Code analysis by [Microsoft.CodeAnalysis.NetAnalyzers](https://github.com/dotnet/roslyn-analyzers)
 
+## � Security
+
+This project follows security best practices with:
+- ✅ Automated vulnerability scanning on every build
+- ✅ Weekly Dependabot security updates
+- ✅ Zero known vulnerabilities
+- ✅ SBOM (Software Bill of Materials) generation
+- ✅ Multi-platform security validation
+
+For security policy and vulnerability reporting, see [SECURITY.md](SECURITY.md).
+
 ## 📞 Contact & Support
 
 - **Issues**: [GitHub Issues](https://github.com/markhazleton/ConcurrentProcessing/issues)
+- **Security**: [Security Policy](SECURITY.md)
 - **Discussions**: [GitHub Discussions](https://github.com/markhazleton/ConcurrentProcessing/discussions)
 - **Full Article**: [Concurrent Processing Deep Dive](https://markhazleton.com/concurrent-processing.html)
 - **Author**: [Mark Hazleton](https://github.com/markhazleton)

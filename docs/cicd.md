@@ -254,6 +254,15 @@ Common environment variables used in workflows:
 - Windows: Authenticode signing
 - macOS: Apple Developer signing
 
+### SBOM Generation
+**Implemented:** Software Bill of Materials (SBOM) generation for supply chain security
+- Generated for all builds in security-scan job
+- Included with releases for transparency
+- SPDX 2.2 format for compatibility
+- Helps with compliance and auditing
+
+For more information, see [SECURITY.md](../SECURITY.md).
+
 ---
 
 ## Troubleshooting

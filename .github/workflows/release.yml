@@ -80,6 +80,18 @@ jobs:
         done
         cd ..
     
+    - name: Generate SBOM for releases
+      run: |
+        dotnet tool install --global Microsoft.Sbom.DotNetTool --version 2.2.10 || true
+        for runtime in win-x64 linux-x64 osx-x64 osx-arm64; do
+          echo "Generating SBOM for $runtime..."
+          sbom-tool generate -b ./publish/$runtime -bc . -pn ConcurrentProcessing -pv ${{ steps.version.outputs.version }} -ps markhazleton -nsb https://github.com/markhazleton -D true
+          if [ -f "_manifest/spdx_2.2/manifest.spdx.json" ]; then
+            cp "_manifest/spdx_2.2/manifest.spdx.json" "./ConcurrentProcessing-v${{ steps.version.outputs.version }}-${runtime}-sbom.json"
+          fi
+        done
+      continue-on-error: true
+    
     - name: Generate release notes
       id: release_notes
       run: |
@@ -117,5 +129,6 @@ jobs:
         files: |
           ConcurrentProcessing-v${{ steps.version.outputs.version }}-*.zip
           ConcurrentProcessing-v${{ steps.version.outputs.version }}-*.tar.gz
+          ConcurrentProcessing-v${{ steps.version.outputs.version }}-*-sbom.json
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

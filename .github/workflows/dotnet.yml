@@ -109,8 +109,20 @@ jobs:
           exit 1
         else
           echo "? No vulnerable packages found"
-        fi
-
+        fi    
+    - name: Generate SBOM (Software Bill of Materials)
+      run: |
+        dotnet tool install --global Microsoft.Sbom.DotNetTool --version 2.2.10 || true
+        sbom-tool generate -b ./bin/${{ env.CONFIGURATION }} -bc . -pn ConcurrentProcessing -pv 2.0.0 -ps markhazleton -nsb https://github.com/markhazleton
+      continue-on-error: true
+    
+    - name: Upload SBOM artifact
+      uses: actions/upload-artifact@v6
+      with:
+        name: sbom
+        path: _manifest/spdx_2.2/*.json
+        retention-days: 90
+      continue-on-error: true
   publish:
     name: Publish Release
     runs-on: ubuntu-latest
