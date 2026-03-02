@@ -49,7 +49,7 @@ jobs:
     
     - name: Upload build artifacts
       if: matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: build-artifacts
         path: |
@@ -117,7 +117,7 @@ jobs:
       continue-on-error: true
     
     - name: Upload SBOM artifact
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: sbom
         path: _manifest/spdx_2.2/*.json
@@ -152,7 +152,7 @@ jobs:
           /p:IncludeNativeLibrariesForSelfExtract=true
     
     - name: Upload publish artifacts
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: published-app
         path: ./publish
